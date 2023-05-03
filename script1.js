@@ -18,34 +18,35 @@ const sliderContainer = document.getElementById("slider-container");
 const slider = document.getElementById("slider");
 
 searchBtn.addEventListener('click', async () => {
+  document.getElementsByClassName('loader')[0].style.display = 'block';
   const symbol = inputBox1.value;
-  fetch(`https://stock-pred-ucoe.onrender.com/predict?symbol=${symbol}&period=50`)
-    .then(res => {
-      res.json()
-        .then(data => {
-          console.log(data);
-          if (data && data.length > 0) {
-            data.forEach((itemData) => {
-              const dataObj = {
-                date: itemData[0],
-                price: itemData[1]
-              };
-              dataObjects.push(dataObj);
-            });
-            console.log(dataObjects);
-            updateTable(dataObjects, 10, 1);
-            h1.style.display = 'none';
-            searchBox.style.display = 'none';
-            table.style.display = 'flex';
-            dataBox.style.display = 'flex';
-            sliderContainer.style.display = 'block';
-            slider.value = 50;
-          }
-        })
-        .catch(error => console.log(error));
+  console.log(symbol);
+
+  fetch(`https://stock-pred-ucoe.onrender.com/predict?symbol=${symbol}&period=5`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Response data = ' + data);
+      document.getElementsByClassName('loader')[0].style.display = 'none';
+      if (data && data.length > 0) {
+        data.forEach((itemData) => {
+          const dataObj = {
+            date: itemData[0],
+            price: itemData[1]
+          };
+          dataObjects.push(dataObj);
+        });
+        console.log(dataObjects);
+        updateTable(dataObjects, 10, 1);
+        h1.style.display = 'none';
+        searchBox.style.display = 'none';
+        table.style.display = 'flex';
+        dataBox.style.display = 'flex';
+        sliderContainer.style.display = 'block';
+        slider.value = 50;
+      }
     })
-    .catch(error => console.log(error));
-});
+    .catch(error => console.error(error));
+})
 
 slider.addEventListener('input', async () => {
   const period = slider.value;
