@@ -14,6 +14,9 @@ dataBox.style.display = 'none';
 
 const dataObjects = [];
 
+const sliderContainer = document.getElementById("slider-container");
+const slider = document.getElementById("slider");
+
 searchBtn.addEventListener('click', async () => {
   const symbol = inputBox1.value;
   fetch(`https://stock-pred-ucoe.onrender.com/predict?symbol=${symbol}&period=50`)
@@ -35,12 +38,41 @@ searchBtn.addEventListener('click', async () => {
             searchBox.style.display = 'none';
             table.style.display = 'flex';
             dataBox.style.display = 'flex';
+            sliderContainer.style.display = 'block';
+            slider.value = 50;
           }
         })
         .catch(error => console.log(error));
     })
     .catch(error => console.log(error));
 });
+
+slider.addEventListener('input', async () => {
+  const period = slider.value;
+  const symbol = inputBox1.value;
+  fetch(`https://stock-pred-ucoe.onrender.com/predict?symbol=${symbol}&period=${period}`)
+    .then(res => {
+      res.json()
+        .then(data => {
+          console.log(data);
+          if (data && data.length > 0) {
+            const dataObjects = [];
+            data.forEach((itemData) => {
+              const dataObj = {
+                date: itemData[0],
+                price: itemData[1]
+              };
+              dataObjects.push(dataObj);
+            });
+            console.log(dataObjects);
+            updateTable(dataObjects, 10, 1);
+          }
+        })
+        .catch(error => console.log(error));
+    })
+    .catch(error => console.log(error));
+});
+
 
 
 // For Updating the table

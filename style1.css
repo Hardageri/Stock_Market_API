@@ -307,15 +307,28 @@ tbody tr.active-row {
   background-color: #ddd;
 }
 
+/* rightside */
 
+.rightside{
+
+}
+
+/* Slider */
+#slider-container{
+  display: flex;
+  height: 30%;
+  
+  flex-direction: row;
+}
 /* Graph */
 
 #stock-graph {
   width: 50%;
-  height: 100%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
 }
 
 #myChart {
