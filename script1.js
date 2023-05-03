@@ -30,7 +30,7 @@ searchBtn.addEventListener('click', async () => {
               dataObjects.push(dataObj);
             });
             console.log(dataObjects);
-            updateTable(dataObjects, 15, 1);
+            updateTable(dataObjects, 10, 1);
             h1.style.display = 'none';
             searchBox.style.display = 'none';
             table.style.display = 'flex';
@@ -45,7 +45,7 @@ searchBtn.addEventListener('click', async () => {
 
 // For Updating the table
 
-function updateTable(data, itemsPerPage = 15, currentPage = 1) {
+function updateTable(data, itemsPerPage, currentPage = 1) {
   const tableBody = document.getElementById('data');
   tableBody.innerHTML = '';
 
@@ -127,7 +127,6 @@ function updateTable(data, itemsPerPage = 15, currentPage = 1) {
   tableContainer.appendChild(paginationWrapper);
   if (currentPage > 1) {
     const prevButton = document.createElement('button');
-    prevButton.textContent = 'Prev';
     prevButton.addEventListener('click', () => {
       updateTable(data, itemsPerPage, currentPage - 1);
     });
@@ -136,7 +135,6 @@ function updateTable(data, itemsPerPage = 15, currentPage = 1) {
   paginationWrapper.appendChild(pagination);
   if (currentPage < totalPages) {
     const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
     nextButton.addEventListener('click', () => {
       updateTable(data, itemsPerPage, currentPage + 1);
     });
@@ -149,29 +147,46 @@ function updateTable(data, itemsPerPage = 15, currentPage = 1) {
 
 // For the graph
 
-const dataLabels = dataObjects.map(dataObj => dataObj.date);
-const dataValues = dataObjects.map(dataObj => dataObj.price);
+// const dataLabels = dataObjects.map(dataObj => dataObj.date);
+// const dataValues = dataObjects.map(dataObj => dataObj.price);
 
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new myChart(ctx, {
-  type: 'line',
-  data: {
-    labels: dataLabels,
-    datasets: [{
-      label: 'Stock Price',
-      data: dataValues,
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          min: 160,
-          max: 182
-        }
-      }]
-    }
-  }
-});
+
+// // Define Data
+// const data = [{
+//   x: dataLabels,
+//   y: dataValues,
+//   mode: "lines"
+// }];
+
+// // Define Layout
+// const layout = {
+//   xaxis: { title: "Square Meters" },
+//   yaxis: { range: [160, 163], title: "Price" },
+//   title: "Date vs Price"
+// };
+
+// // Display using Plotly
+// Plotly.newPlot("stock-graph", data, layout);
+
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  const dataLabels = dataObjects.map(dataObj => [new Date(dataObj.date), dataObj.price]);
+
+  var data = google.visualization.arrayToDataTable([
+    ['Date', 'Price'],
+    ...dataLabels
+  ]);
+
+
+  var options = {
+    title: 'Company Performance',
+    curveType: 'function',
+    legend: { position: 'bottom' },
+    hAxis: { format: 'MMM dd, yyyy' } // Use this to format the dates in the x-axis
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('stock-graph'));
+  chart.draw(data, options);
+}
