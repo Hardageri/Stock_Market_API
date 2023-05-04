@@ -41,7 +41,7 @@
     </header>
     <main>
         <section id="Home">
-            <h1>Welcome To Midas</h1>
+            <h1>Welcome To <span>Midas</span></h1>
             <div class="search-box">
                 <div class="row">
                     <input type="text" id="input-box" placeholder="Search Anything" autocomplete="off">
@@ -49,6 +49,14 @@
                 </div>
                 <div class="result-box">
                 </div>
+            </div>
+            <div class="range-slider">
+                <input type="range" min="1" max="365" value="5" steps="1" id="slider" class="slider">
+                <div class="slider-thumb">
+                    <div class="tooltip">
+                    </div>
+                </div>
+                <div class="progress"></div>
             </div>
             <div class="loader"></div>
             <div class="data-box">
@@ -65,17 +73,10 @@
                         <!-- Pagination buttons will be added dynamically here  -->
                     </tfoot>
                 </table>
-                <div class="rightside">
-                    <div id="stock-graph">
+                <div id="stock-graph">
 
-                    </div>
-                    <div id="slider-container">
-                        <input type="range" min="1" max="365" value="50" id="slider">
-                        <label for="slider">Select period (days):</label>
-                    </div>
                 </div>
             </div>
-
         </section>
     </main>
 

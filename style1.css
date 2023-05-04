@@ -9,7 +9,7 @@ body {
   height: 100vh;
   width: auto;
   background-color: #000;
-  background-image: url('Image3.png');
+  background-image: url('Image4.png');
   background-size: cover;
   background-position: center;
 }
@@ -32,6 +32,7 @@ a:hover {
 header {
   position: relative;
   padding: 0 2rem;
+  backdrop-filter: blur(100px);
 }
 
 .navbar {
@@ -103,8 +104,19 @@ section#Home {
 #Home h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  
 }
 
+
+h1 span{
+  transition: 1s;
+  font-size: 50px;
+}
+
+h1 span:hover{
+  color: goldenrod;
+  transform: translate(700px) scale(10);
+}
 /* Search Bar */
 
 #Home .search-box {
@@ -263,20 +275,11 @@ tbody tr.active-row {
 
 }
 
-/* 
-.table .pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-
-} */
-
 /* pagination-container */
 
 .pagination-container {
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 15px;
   display: flex;
   flex-basis: content;
 }
@@ -284,16 +287,16 @@ tbody tr.active-row {
 #table-container {
   display: flex;
   flex-direction: column;
-  width: 800px;
+  width: 900px;
 }
 
 .pagination button {
-  margin: 0 5px;
-  padding: 5px 10px;
+  margin: 0 10px 7px 7px;
+  padding: 4px 9px;
   background-color: #f2f2f2;
   border: none;
-  border-radius: 3px;
-  font-size: 16px;
+  border-radius: 5px;
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -307,19 +310,111 @@ tbody tr.active-row {
   background-color: #ddd;
 }
 
-/* rightside */
-
-.rightside{
-
-}
-
 /* Slider */
-#slider-container{
-  display: flex;
-  height: 30%;
-  
-  flex-direction: row;
+
+.range-slider {
+  margin: 8em auto;
+  position: relative;
 }
+
+.range-slider .slider {
+  -webkit-appearance: none;
+  width: 1000px;
+  height: 0.7em;
+  outline: none;
+  border-radius: 3px;
+  background: #1f1f1f;
+  box-shadow: 3px 3px 6px #000, inset 1px 1px 1px #909090;
+}
+
+.range-slider .slider-thumb {
+  position: absolute;
+  width: 1.7em;
+  height: 1.7em;
+  background: #090909;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: inset 0px 1px 2px #909090;
+}
+
+.range-slider .slider-thumb::before {
+  content: '';
+  position: absolute;
+  width: 0.7em;
+  height: 0.7em;
+  background: #333;
+  border-radius: inherit;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s;
+}
+
+.range-slider .tooltip {
+  position: absolute;
+  width: 2.8em;
+  height: 2em;
+  top: -2em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #090909;
+  text-align: center;
+  line-height: 35px;
+  color: #fff;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px #1f1f1f, inset 0px 1px 2px #909090;
+}
+
+.range-slider .tooltip::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #090909;
+  bottom: -0.5em;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.range-slider .progress {
+  width: 50%;
+  height: 0.4em;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #335bf4 0%, #2ae9c9 100%);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-100%);
+  left: 0;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 700px) {
+  .neu-range-slider {
+    width: 100%;
+  }
+}
+
+.range-slider:hover .slider-thumb::before {
+  background: #2ae9c9;
+}
+
+.range-slider .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.7em;
+  height: 1.7em;
+  cursor: pointer;
+  z-index: 3;
+  position: relative;
+}
+
+
 /* Graph */
 
 #stock-graph {
@@ -335,9 +430,15 @@ tbody tr.active-row {
   max-height: 700px;
 }
 
+
+/* For the loading display  */
+
+
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
   border-radius: 50%;
   display: none;
   width: 120px;
@@ -347,6 +448,11 @@ tbody tr.active-row {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
