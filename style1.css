@@ -9,7 +9,7 @@ body {
   height: 100vh;
   width: auto;
   background-color: #000;
-  background-image: url('Image4.png');
+  background-image: url('Image3.png');
   background-size: cover;
   background-position: center;
 }
@@ -32,7 +32,6 @@ a:hover {
 header {
   position: relative;
   padding: 0 2rem;
-  backdrop-filter: blur(100px);
 }
 
 .navbar {
