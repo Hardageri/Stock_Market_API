@@ -207,50 +207,73 @@ function updateTable(data, itemsPerPage, currentPage = 1) {
 }
 
 
-// replace inputSlider with slider
-
 // For the graph
 
-// const dataLabels = dataObjects.map(dataObj => dataObj.date);
-// const dataValues = dataObjects.map(dataObj => dataObj.price);
+// Extract dates and prices into separate arrays
+const dates = dataObjects.map(item => item.date);
+const prices = dataObjects.map(item => item.price);
+
+// Round prices to 2 decimal points
+const roundedPrices = prices.map(price => Number(price.toFixed(2)));
+
+// Find the minimum and maximum prices
+const minPrice = Math.min(...roundedPrices);
+const maxPrice = Math.max(...roundedPrices);
 
 
-// // Define Data
-// const data = [{
-//   x: dataLabels,
-//   y: dataValues,
-//   mode: "lines"
-// }];
+// Set up Chart.js options
+const options = {
+  scales: {
+    y: {
+      min: minPrice,
+      max: maxPrice,
+    },
+  },
+};
 
-// // Define Layout
-// const layout = {
-//   xaxis: { title: "Square Meters" },
-//   yaxis: { range: [160, 163], title: "Price" },
-//   title: "Date vs Price"
-// };
+// Set up Chart.js data
+const chartData = {
+  labels: dates,
+  datasets: [{
+    label: 'Price',
+    data: roundedPrices,
+    borderColor: 'blue',
+    fill: false,
+  }],
+};
 
-// // Display using Plotly
-// Plotly.newPlot("stock-graph", data, layout);
-
-google.charts.load('current', { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-  const dataLabels = dataObjects.map(dataObj => [new Date(dataObj.date), dataObj.price]);
-
-  var data = google.visualization.arrayToDataTable([
-    ['Date', 'Price'],
-    ...dataLabels
-  ]);
+// Create a new chart using Chart.js
+const ctx = document.getElementById("myChart").getContext("2d");
+const config = {
+  type: 'line',
+  data: chartData,
+  options: options,
+};
+const myChart = new Chart(ctx, config);
 
 
-  var options = {
-    title: 'Company Performance',
-    curveType: 'function',
-    legend: { position: 'bottom' },
-    hAxis: { format: 'MMM dd, yyyy' } // Use this to format the dates in the x-axis
-  };
 
-  var chart = new google.visualization.LineChart(document.getElementById('stock-graph'));
-  chart.draw(data, options);
-}
+// Another graph method
+
+// google.charts.load('current', { 'packages': ['corechart'] });
+// google.charts.setOnLoadCallback(drawChart);
+
+// function drawChart() {
+//   const dataLabels = dataObjects.map(dataObj => [new Date(dataObj.date), dataObj.price]);
+
+//   var data = google.visualization.arrayToDataTable([
+//     ['Date', 'Price'],
+//     ...dataLabels
+//   ]);
+
+
+//   var options = {
+//     title: 'Company Performance',
+//     curveType: 'function',
+//     legend: { position: 'bottom' },
+//     hAxis: { format: 'MMM dd, yyyy' } // Use this to format the dates in the x-axis
+//   };
+
+//   var chart = new google.visualization.LineChart(document.getElementById('stock-graph'));
+//   chart.draw(data, options);
+// }

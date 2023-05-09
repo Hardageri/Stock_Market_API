@@ -32,6 +32,9 @@ a:hover {
 header {
   position: relative;
   padding: 0 2rem;
+  backdrop-filter: blur(15px);
+  padding: 15px 20px;
+
 }
 
 .navbar {
@@ -71,7 +74,7 @@ header {
   height: 0;
   width: 300px;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(5px);
   border-radius: 10px;
   overflow: hidden;
   transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -103,19 +106,20 @@ section#Home {
 #Home h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  
+
 }
 
 
-h1 span{
+h1 span {
   transition: 1s;
   font-size: 50px;
 }
 
-h1 span:hover{
+h1 span:hover {
   color: goldenrod;
   transform: translate(700px) scale(10);
 }
+
 /* Search Bar */
 
 #Home .search-box {
@@ -417,16 +421,17 @@ tbody tr.active-row {
 /* Graph */
 
 #stock-graph {
-  width: 50%;
-  height: 70%;
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  padding: 10px 15px;
+  margin: 5px 5px;
 }
 
 #myChart {
-  max-height: 700px;
+  width: auto;
 }
 
 
