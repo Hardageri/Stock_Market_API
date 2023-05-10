@@ -19,7 +19,7 @@ const slider = document.getElementById("slider");
 
 searchBtn.addEventListener('click', async () => {
   document.getElementsByClassName('loader')[0].style.display = 'block';
-  sliderContainer.style.display = 'none';
+  // sliderContainer.style.display = 'none';
   const symbol = inputBox1.value;
   console.log(symbol);
   console.log(val1);
@@ -39,13 +39,16 @@ searchBtn.addEventListener('click', async () => {
         });
         console.log(dataObjects);
         updateTable(dataObjects, 10, 1);
-        h1.style.display = 'none';
-        searchBox.style.display = 'none';
+        // h1.style.display = 'none';
+        // searchBox.style.display = 'none';
         table.style.display = 'flex';
         dataBox.style.display = 'flex';
       }
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      document.getElementsByClassName('loader')[0].style.display = 'none';
+      console.error(error)
+    });
 });
 
 

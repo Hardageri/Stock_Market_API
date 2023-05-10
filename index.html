@@ -18,7 +18,7 @@
 
 
 <body>
-    <header>
+    <div class="header">
         <div class="navbar">
             <div class="logo">
                 <a href="about.html">Stock Market</a>
@@ -40,7 +40,7 @@
                 <li><a href="">Login In</a></li>
             </ul>
         </div>
-    </header>
+    </div>
     <main>
         <section id="Home">
             <h1>Welcome To <span>Midas</span></h1>
@@ -62,19 +62,19 @@
             </div>
             <div class="loader"></div>
             <div class="data-box">
-                <table class="table" id="table-container">
+                    <table class="table" id="table-container">
 
-                    <tbody id="data">
-                        <tr>
-                            <th>S.no</th>
-                            <th>Date</th>
-                            <th>Price</th>
-                        </tr>
-                    </tbody>
-                    <tfoot class="pagination-wrapper" id="pagination-container">
-                        <!-- Pagination buttons will be added dynamically here  -->
-                    </tfoot>
-                </table>
+                        <tbody id="data">
+                            <tr>
+                                <th>S.no</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                            </tr>
+                        </tbody>
+                        <tfoot class="pagination-wrapper" id="pagination-container">
+                            <!-- Pagination buttons will be added dynamically here  -->
+                        </tfoot>
+                    </table>
                 <div id="stock-graph">
                     <canvas id="myChart"></canvas>
                 </div>
